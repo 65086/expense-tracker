@@ -6,6 +6,9 @@ import { useGetUserInfo } from "../../hooks/useGetUserInfo";
 import { signOut } from "firebase/auth";
 import { auth } from "../../config/firebase-config";
 import { useNavigate } from "react-router-dom";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+
+
 
 const Container = styled.div`
   background-color: white;
@@ -21,6 +24,17 @@ const Container = styled.div`
 `;
 
 const Header = styled.div`
+  background-color: white;
+  color: #0d1d2c;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 22px;
+  font-size: 25px;
+  font-weight: bold;
+`;
+
+const HeaderSpan = styled.span`
   background-color: white;
   color: #0d1d2c;
   display: flex;
@@ -48,8 +62,16 @@ const signUserOut = async () => {
   return (
     <Container>
       <Header>
-      <span>Expense Tracker </span>
-      <img src={profilePhoto} alt="Avatar" title={name} className="avatar" onClick={signUserOut} ></img>
+      <HeaderSpan>
+      <img src={profilePhoto} alt="Avatar" title={name} className="avatar" ></img>
+      </HeaderSpan>
+      <HeaderSpan>
+       Expense Tracker 
+      </HeaderSpan>  
+      <HeaderSpan>
+      
+         <FontAwesomeIcon style={{cursor:'pointer'}} icon="fa-solid fa-right-from-bracket" onClick={signUserOut} />
+      </HeaderSpan>      
       </Header>
       <HomeComponent/>
     </Container>

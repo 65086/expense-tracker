@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useAddTransaction } from "../../hooks/useAddTransaction";
 import { useGetTransactions } from "../../hooks/useGetTransactions";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 const Container = styled.div`
   display: flex;
@@ -131,11 +132,16 @@ const AddTransactionView = (props) => {
       <AddTransaction
         onClick={() =>
         {
+          if(transactionAmount!=undefined)
+          {
           props.addTransaction({
             description,
             transactionAmount: Number(transactionAmount),
             transactionType,
-          });  
+          }); 
+         }
+         else 
+            alert('please provide input') 
         }       
         }
       >
@@ -152,7 +158,7 @@ const OverViewComponent = (props) => {
   return (
     <Container>
       <BalanceBox>
-        Balance: {balance >= 0 ? <span>${balance}</span> : <span>-${balance * -1}</span>}
+        Balance: {balance >= 0 ? <span><FontAwesomeIcon icon="fa-solid fa-indian-rupee-sign" />{" "}{balance}</span> : <span>-<FontAwesomeIcon icon="fa-solid fa-indian-rupee-sign" /> {" "}{balance * -1}</span>}
         <AddTransaction onClick={() => toggleAddTXn((isVisible) => !isVisible)}>
           {isAddTxnVisible ? "CANCEL" : "ADD"}
         </AddTransaction>
@@ -168,10 +174,10 @@ const OverViewComponent = (props) => {
       )}
       <ExpenseContainer>
         <ExpenseBox>
-          Expense<span>${expenses}</span>
+          Expense<span><FontAwesomeIcon icon="fa-solid fa-indian-rupee-sign" />{" "}{expenses}</span>
         </ExpenseBox>
         <ExpenseBox isIncome={true}>
-          Income<span>${income}</span>
+          Income<span><FontAwesomeIcon icon="fa-solid fa-indian-rupee-sign" />{" "}{income}</span>
         </ExpenseBox>
       </ExpenseContainer>
     </Container>

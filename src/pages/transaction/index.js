@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import React, { useEffect, useState } from "react";
 import { useGetTransactions } from "../../hooks/useGetTransactions";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 const Container = styled.div`
   background-color: white;
@@ -39,7 +40,8 @@ const TransactionCell = (props) => {
   return (
     <Cell isExpense={props.payload?.transactionType === "expense"}>
       <span>{props.payload?.description}</span>
-      <span>${props.payload?.transactionAmount}</span>
+      <span><FontAwesomeIcon icon="fa-solid fa-indian-rupee-sign" /> {" "}{props.payload?.transactionAmount}</span>
+      <span><FontAwesomeIcon icon="fa-regular fa-trash-can" /></span>
     </Cell>
   );
 };
