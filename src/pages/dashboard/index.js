@@ -1,7 +1,11 @@
 import React from "react";
+import "./styles.css";
 import styled from "styled-components";
 import { HomeComponent } from "../home";
 import { useGetUserInfo } from "../../hooks/useGetUserInfo";
+import { signOut } from "firebase/auth";
+import { auth } from "../../config/firebase-config";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   background-color: white;
@@ -26,33 +30,27 @@ const Header = styled.div`
   font-size: 25px;
   font-weight: bold;
 `;
-const AddTransaction = styled.div`
-  font-size: 15px;
-  background: #0d1d2c;
-  display: flex;
-  color: white;
-  padding: 5px 10px;
-  cursor: pointer;
-  flex-direction: row;
-  border-radius: 4px;
-  font-weight: bold;
-`;
 
 
 export const Dashboard = () => {
 const { name,profilePhoto } = useGetUserInfo();
+const navigate = useNavigate();
 
+const signUserOut = async () => {
+  try {
+    await signOut(auth);
+    localStorage.clear();
+    navigate("/");
+  } catch (err) {
+    console.error(err);
+  }
+};
   return (
     <Container>
-      <img className="profile-photo" src={profilePhoto} />
-
       <Header>
-
-      <AddTransaction>
-          {"Sign Out"}
-      </AddTransaction>
+      <span>Expense Tracker </span>
+      <img src={profilePhoto} alt="Avatar" title={name} className="avatar" onClick={signUserOut} ></img>
       </Header>
-      <Header>{name}'s Expense Tracker</Header>
       <HomeComponent/>
     </Container>
   );
